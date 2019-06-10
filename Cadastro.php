@@ -9,6 +9,7 @@ include 'header.php' ?>
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="container">
+                <p class="note note-success invisible" id="paragrafo_alerta"><strong>Note success:</strong> Lorem, ipsum dolor sit amet consectetur adipisicing  elit. Cum doloremque officia laboriosam. Itaque ex obcaecati architecto! Qui necessitatibus delectus placeat  illo rem id nisi consequatur esse, sint perspiciatis soluta porro?</p>
                 <form class="text-center border border-light p-5" method="post" action="Cadastro.php" enctype="multipart/form-data">
 
                     <p class="h4 mb-4">Cadastro</p>
@@ -63,20 +64,32 @@ include 'header.php' ?>
 
 <?php
 
+$_SESSION["msg"] = 1;
+
 @$nome = $_POST["nome"];
 @$apelido = $_POST["apelido"];
 @$email = $_POST["email"];
 @$senha = $_POST["senha"];
 
-//&& !empty($apelido) && !empty($email) && !empty($senha)
-if(!empty($nome))
+//
+if(!empty($nome) && !empty($apelido) && !empty($email) && !empty($senha))
 {
-    
+
+    $result = inseri_user();
+    if($result == 1)
+    {
+        $_SESSION["msg"] = 1;
+    }
+    else
+    {
+        
+    }
+    /*
     $dir = 'uploads/';        
 
         if(move_uploaded_file($_FILES["img"]["tmp_name"], $dir.$_FILES["img"]["name"]))
         {
-//            $tamanho = filesize($_FILES["img"]["name"]);
+            $tamanho = filesize($_FILES["img"]["name"]);;
             
             $mysqlImg = addslashes(fread(fopen($_FILES["img"]["name"], "r"), $tamanho));
             echo "Arquivo valido";
@@ -93,7 +106,7 @@ if(!empty($nome))
         else
         {
             echo "Erro";
-        } 
+        }*/
 }
 
 ?>

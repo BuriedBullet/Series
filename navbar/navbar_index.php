@@ -9,6 +9,9 @@
     .titulo_index {
         font-family: 'Teko', sans-serif;
     }
+    .text-carrousel{
+        font-family: 'Source Serif Pro', serif;
+    }
     .navbar {
         background-color: transparent;
     }
@@ -72,8 +75,8 @@
                         <div class="mask rgba-black-light"></div>
                     </div>
                     <div class="carousel-caption">
-                        <h3 class="h3-responsive">Lucifer</h3>
-                        <p>Netflix</p>
+                        <h3 class="h3-responsive wow fadeInDown text-carrousel" data-wow-delay="0.3s">Lucifer</h3>
+                        <p class="wow fadeInDown text-carrousel" data-wow-delay="0.3s">Netflix</p>
                     </div>
                 </div>
                 <div class="carousel-item">
@@ -82,8 +85,8 @@
                         <div class="mask rgba-black-strong"></div>
                     </div>
                     <div class="carousel-caption">
-                        <h3 class="h3-responsive">Tate no Yuusha no Nariagari</h3>
-                        <p>Anime</p>
+                        <h3 class="h3-responsive wow fadeInDown text-carrousel" data-wow-delay="0.3s">Tate no Yuusha no Nariagari</h3>
+                        <p class="wow fadeInDown text-carrousel" data-wow-delay="0.3s">Anime</p>
                     </div>
                 </div>
                 <div class="carousel-item">
@@ -92,8 +95,8 @@
                         <div class="mask rgba-black-slight"></div>
                     </div>
                     <div class="carousel-caption">
-                        <h3 class="h3-responsive">Game of Thrones</h3>
-                        <p>HBO</p>
+                        <h3 class="h3-responsive wow fadeInDown text-carrousel" data-wow-delay="0.3s">Game of Thrones</h3>
+                        <p class="wow fadeInDown text-carrousel" data-wow-delay="0.3s">HBO</p>
                     </div>
                 </div>
             </div>

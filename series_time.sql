@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 10-Jun-2019 às 04:15
+-- Generation Time: 10-Jun-2019 às 23:23
 -- Versão do servidor: 10.1.37-MariaDB
 -- versão do PHP: 7.3.1
 
@@ -109,6 +109,13 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Extraindo dados da tabela `user`
+--
+
+INSERT INTO `user` (`id`, `nome`, `apelido`, `email`, `senha`, `img`) VALUES
+(1, 'Rubens', 'BuriedBullet', 'Rubensherculano@hotmail.com', 'e10adc3949ba59abbe56', 0x31);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -186,7 +193,7 @@ ALTER TABLE `status_serie`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

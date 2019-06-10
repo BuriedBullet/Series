@@ -14,17 +14,28 @@
         return $con;
     }
     
+    /*
+     * 
+     * 
+     *Parallax MdBootstrap 
+     * 
+     * 
+     *      
+     */
+    
     function inseri_user()
     {
         global $con;
         
-        echo "<pre>";
-        print_r($_FILES['img']);
-        echo "</pre>";
-        exit;
+        $nome = $_POST["nome"];
+        $apelido = $_POST["apelido"];
+        $email = $_POST["email"];
+        $senha = md5($_POST["senha"]);
         
+        $query = "INSERT into user VALUES('', '$nome', '$apelido', '$email', '$senha', '1')";
+        $result = mysqli_query($con, $query);
         
-        
+        return $result;
     }
 
 ?>
