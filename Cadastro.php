@@ -30,7 +30,7 @@ include 'header.php' ?>
                         Digite um 8 caracteres no minimo
                     </small>
 
-                    <div class="input-group">
+<!--                    <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroupFileAddon01">Imagem</span>
                         </div>
@@ -38,7 +38,7 @@ include 'header.php' ?>
                             <input type="file" class="custom-file-input" id="inputGroupFile01" name="img" aria-describedby="inputGroupFileAddon01">
                             <label class="custom-file-label" for="inputGroupFile01">Selecione uma foto</label>
                         </div>
-                    </div>
+                    </div>-->
 
 <!--                    <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="defaultRegisterFormNewsletter">

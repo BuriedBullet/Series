@@ -37,6 +37,28 @@
         
         return $result;
     }
+    
+    function user_acesso()
+    {
+        global $con;
+        
+        $email = $_POST["email"];
+        $senha = md5($_POST["senha"]);
+        
+        $query = "SELECT * FROM user";
+        
+        $result = mysqli_query($con, $query);
+        
+        while($item = mysqli_fetch_array($result))
+        {
+            echo '<pre>';
+            print_r($item);
+            echo '</pre>';
+            exit;
+        }
+        
+        return $result;
+    }
 
 ?>
 

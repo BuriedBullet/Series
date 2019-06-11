@@ -15,19 +15,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="index.php">
                         <i class="fas fa-home"></i> Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item <?= $_SESSION["pagina"] == "1" ? "active" : "" ?>">
                     <a class="nav-link" href="Cadastro.php">
                         <i class="fas fa-address-card"></i> Cadastrar
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
+                <li class="nav-item <?= $_SESSION["pagina"] == "2" ? "active" : "" ?>">
+                    <a class="nav-link" href="Login.php">
                         <i class="fas fa-user"></i> Login
                         <span class="sr-only">(current)</span>
                     </a>

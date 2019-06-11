@@ -10,7 +10,7 @@
     <?php  endif; ?>
     
 </script>
-<footer class="page-footer font-small cyan darken-3 <?= $_SESSION["pagina"] == "1" ? "fixed-bottom" : "" ?>">
+<footer class="page-footer font-small cyan darken-3 <?= $_SESSION["pagina"] == "1" || $_SESSION["pagina"] == "2" ? "fixed-bottom" : "" ?>">
     <div class="footer-copyright text-center py-3">© 2019 Copyright:
         <a href="#"> Série Time</a>
     </div>
