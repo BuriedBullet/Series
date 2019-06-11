@@ -1,18 +1,13 @@
 <?php
 
+    session_start();
+
     $servidor = "localhost";
     $usuario = "root";
     $senha = "";
     $db = "series_time";
     
     $con = mysqli_connect($servidor, $usuario, $senha, $db);
-    
-    function select_aa()
-    {
-        global $con;
-        
-        return $con;
-    }
     
     /*
      * 
@@ -43,21 +38,29 @@
         global $con;
         
         $email = $_POST["email"];
-        $senha = md5($_POST["senha"]);
-        
-        $query = "SELECT * FROM user";
-        
+        $senhas = md5($_POST["senha"]);
+    
+        $query = "SELECT * FROM user WHERE (apelido = '$email' OR email = '$email') AND senha = '$senhas'";
+
         $result = mysqli_query($con, $query);
-        
-        while($item = mysqli_fetch_array($result))
+
+        $rst = array();
+        while($item = mysqli_fetch_assoc($result))
         {
-            echo '<pre>';
-            print_r($item);
-            echo '</pre>';
-            exit;
+            $rst = $item;
         }
         
-        return $result;
+        if($rst)
+        {
+            $_SESSION["user"] = $rst;
+            return 1;
+        }
+        else
+        {
+            $_SESSION["user"] = "";
+            return 0;
+        }
+        
     }
 
 ?>
