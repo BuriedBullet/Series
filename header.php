@@ -1,5 +1,6 @@
+<?php session_start();?>
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
     <head>
         <title>Series Time</title>
         <link rel="shotcut icon" type="image/icon" href="assets/img/favicon.png" />

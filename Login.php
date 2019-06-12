@@ -10,7 +10,7 @@ include 'header.php' ?>
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="container">
 <!--                <p class="note note-warning invisible" id="paragrafo_alerta"><strong>Alerta:</strong> Login e/ou Senha incorreto</p>-->
-                <p class="note note-warning invisible" id="alerta"><strong>Alerta:</strong> Login e/ou Senha incorreto</p>
+                <p class="note note-danger invisible" id="alerta"><strong>Alerta:</strong> Login e/ou Senha incorreto</p>
                 <form class="text-center border border-light p-5" method="post" action="Login.php">
 
                     <p class="h4 mb-4">Login</p>
@@ -50,6 +50,10 @@ include 'footer.php';
     if(result === 0)
     {
         $("#alerta").removeClass("invisible").addClass("visible");
+    }
+    else
+    {
+        window.location.href = "view.php";
     }
 </script>
   

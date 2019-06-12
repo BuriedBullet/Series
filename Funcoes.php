@@ -62,6 +62,40 @@
         }
         
     }
+    
+    function select_categoria()
+    {
+        global $con;
+        
+        $query = "SELECT * FROM categoria";
+        
+        $result = mysqli_query($con, $query);
+        
+        $rst = array();
+        while($item = mysqli_fetch_assoc($result))
+        {
+            $rst[] = (object)$item;
+        }
+        
+        return $rst;
+    }
+    
+    function select_status()
+    {
+        global $con;
+        
+        $query = "SELECT * FROM status_serie";
+        
+        $result = mysqli_query($con, $query);
+        
+        $rst = array();
+        while($item = mysqli_fetch_assoc($result))
+        {
+            $rst[] = (object)$item;
+        }
+        
+        return $rst;
+    }
 
 ?>
 
