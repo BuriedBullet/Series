@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 10-Jun-2019 às 23:23
+-- Generation Time: 12-Jun-2019 às 03:27
 -- Versão do servidor: 10.1.37-MariaDB
 -- versão do PHP: 7.3.1
 
@@ -32,6 +32,20 @@ CREATE TABLE `categoria` (
   `id` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `categoria`
+--
+
+INSERT INTO `categoria` (`id`, `nome`) VALUES
+(1, 'Comedia'),
+(2, 'Drama'),
+(3, 'LGBT'),
+(4, 'Ação'),
+(5, 'Romance'),
+(6, 'Aventura'),
+(7, 'Anime'),
+(8, 'Fantasia');
 
 -- --------------------------------------------------------
 
@@ -93,6 +107,15 @@ CREATE TABLE `status_serie` (
   `nome` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `status_serie`
+--
+
+INSERT INTO `status_serie` (`id`, `nome`) VALUES
+(1, 'No ar'),
+(2, 'Pausada'),
+(3, 'Finalizada');
+
 -- --------------------------------------------------------
 
 --
@@ -104,7 +127,7 @@ CREATE TABLE `user` (
   `nome` varchar(50) NOT NULL,
   `apelido` varchar(100) NOT NULL,
   `email` varchar(120) NOT NULL,
-  `senha` varchar(20) NOT NULL,
+  `senha` varchar(50) NOT NULL,
   `img` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -113,7 +136,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `nome`, `apelido`, `email`, `senha`, `img`) VALUES
-(1, 'Rubens', 'BuriedBullet', 'Rubensherculano@hotmail.com', 'e10adc3949ba59abbe56', 0x31);
+(1, 'Rubens', 'BuriedBullet', 'Rubensherculano@hotmail.com', 'e10adc3949ba59abbe56e057f20f883e', 0x31);
 
 --
 -- Indexes for dumped tables
@@ -163,7 +186,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `controle_assistido`
@@ -187,7 +210,7 @@ ALTER TABLE `series`
 -- AUTO_INCREMENT for table `status_serie`
 --
 ALTER TABLE `status_serie`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user`
