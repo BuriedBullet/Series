@@ -53,7 +53,7 @@
         if($rst)
         {
             $_SESSION["user"] = $rst;
-            return 1;
+            return 2;
         }
         else
         {

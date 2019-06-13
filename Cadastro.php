@@ -1,9 +1,9 @@
 <?php
-session_start();
+include 'header.php';
 $_SESSION["pagina"] = "1";
-include 'header.php' ?>
-<?php include 'navbar/navbar_L.php' ?>
-<?php include 'Funcoes.php'?>
+include 'navbar/navbar_L.php';
+include 'Funcoes.php';
+?>
 
 <main class="mt-4 py-5">
     <div class="row">

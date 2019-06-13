@@ -31,6 +31,11 @@ $status = select_status();
                         Coloque o endereço de link da imagem
                     </small>
                     
+                    <input type="text" id="defaultRegisterFormAnoLancamento" name="img_fund" class="form-control" placeholder="Imagem de Fundo">
+                    <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+                        Coloque o endereço de link da imagem
+                    </small>
+                    
                     <div class="form-group blue-border-focus mb-4">
                         <textarea class="form-control" id="exampleFormControlTextarea5" name="descricao" rows="3" placeholder="Descrição sobre a Série/Anime"></textarea>
                     </div>
@@ -76,4 +81,9 @@ $status = select_status();
 </main>
 
 <?php include 'footer.php' ?>
+
+<?php
+    @$nome = $_POST["nome"];
+    @$produtora = $_POST["produtora"];
+?>
 

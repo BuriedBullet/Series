@@ -1,15 +1,13 @@
 <?php
-session_start();
+include 'header.php';
 $_SESSION["pagina"] = "2";
-include 'header.php' ?>
-<?php include 'navbar/navbar_L.php' ?>
-<?php include 'Funcoes.php'?>
+include 'navbar/navbar_L.php';
+include 'Funcoes.php'?>
 
 <main class="mt-4 py-5">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="container">
-<!--                <p class="note note-warning invisible" id="paragrafo_alerta"><strong>Alerta:</strong> Login e/ou Senha incorreto</p>-->
                 <p class="note note-danger invisible" id="alerta"><strong>Alerta:</strong> Login e/ou Senha incorreto</p>
                 <form class="text-center border border-light p-5" method="post" action="Login.php">
 
@@ -26,7 +24,6 @@ include 'header.php' ?>
 
                     <hr>
 
-                    <!-- Terms of service -->
                     <p>By clicking
                         <em>Sign in</em> you agree to our
                         <a href="" target="_blank">terms of service</a>
@@ -51,7 +48,7 @@ include 'footer.php';
     {
         $("#alerta").removeClass("invisible").addClass("visible");
     }
-    else
+    else if(result === 2)
     {
         window.location.href = "view.php";
     }

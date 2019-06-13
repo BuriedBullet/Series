@@ -14,7 +14,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item <?= $_SESSION["ctr_nav"] == 1 ? "active" : "" ?>">
-                    <a class="nav-link" href="cadastro_serie.php">
+                    <a class="nav-link" href="view.php">
                         <i class="fas fa-home"></i> Home
                         <span class="sr-only">(current)</span>
                     </a>
@@ -22,12 +22,6 @@
                 <li class="nav-item <?= $_SESSION["ctr_nav"] == 2 ? "active" : "" ?>">
                     <a class="nav-link" href="cadastro_serie.php">
                         <i class="fas fa-address-card"></i> Cadastrar Série
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item <?= $_SESSION["ctr_nav"] == 3 ? "active" : "" ?>">
-                    <a class="nav-link" href="Login.php">
-                        <i class="fas fa-user"></i> Login
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
