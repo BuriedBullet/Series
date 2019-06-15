@@ -85,5 +85,20 @@ $status = select_status();
 <?php
     @$nome = $_POST["nome"];
     @$produtora = $_POST["produtora"];
+    @$ano = $_POST["ano_lancamento"];
+    @$img = $_POST["img"];
+    @$img_fund = $_POST["img_fund"];
+    @$descricao = $_POST["descricao"];
+    @$qtd_temp = $_POST["qtd_temp"]
+    @$categoria = $_POST["categoria"];
+
+    if(!empty($nome) && !empty($produtora) && !empty($ano) && !empty($img) && !empty($img_fund) && !empty($descricao) && !empty($qtd_temp) && !empty($categoria))
+    {
+        $result = inseri_serie();
+        if($result == 1)
+        {
+            
+        }
+    }
 ?>
 

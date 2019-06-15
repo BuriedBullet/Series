@@ -32,6 +32,22 @@
         
         return $result;
     }
+
+    public function inseri_serie()
+    {
+        global $con;
+        
+        $nome = $_POST["nome"];
+        $produtora = $_POST["produtora"];
+        $ano = $_POST["ano_lancamento"];
+        $img = $_POST["img"];
+        $img_fund = $_POST["img_fund"];
+        $descricao = $_POST["descricao"];
+        $qtd_temp = $_POST["qtd_temp"]
+        $categoria = $_POST["categoria"];
+        
+        $query = "INSERT into serie VALUESD('','')";
+    }
     
     function user_acesso()
     {
