@@ -166,7 +166,6 @@
 	function remove_serie($id)
 	{
 		global $con;
-		DELETE FROM controle_assistido WHERE id=$id
 		$query =  "DELETE FROM controle_assistido WHERE id_series=$id";
 		$result = mysqli_query($con, $query);
 		
@@ -256,21 +255,33 @@
         $categoria = $_POST["categoria"];
         $status = $_POST["status"];
         $id = $_POST["id_serie"];
-		$qtd_temp_ant = $_POST["qtd_temp_ant"];
+        $qtd_temp_ant = $_POST["qtd_temp_ant"];
         
-        $query = "UPDATE series SET nome='$nome', produtira='$produtora', ano_lancamento='$ano', img='$img', img_fund='$img_fund',descricao='$descricao', qtd_temp=$qtd_temp, id_status=$status, data=NOW() WHERE id=$id";
+        $query = "UPDATE series SET nome='$nome', produtora='$produtora', ano_lancamento='$ano', img='$img', img_fund='$img_fund',descricao='$descricao', qtd_temp='$qtd_temp', id_status='$status' WHERE id=$id";
         $result = mysqli_query($con, $query);
         
         if($result)
         {
-			if($qtd_temp_ant != $qtd_temp)
-			{
-				return 2;
-			}
-			else
-			{
-				return 3;
-			}
+            $query = "DELETE FROM serie_categoria WHERE id_serie=$id";
+            $result = mysqli_query($con, $query);
+            
+            if($result)
+            {
+                foreach($categoria as $item)
+                {
+                    $query = "INSERT into serie_categoria VALUES('', '$item', '$id')";
+                    $result = mysqli_query($con, $query);
+                }
+                
+                if($qtd_temp_ant != $qtd_temp)
+                {
+                        return 2;
+                }
+                else
+                {
+                        return 3;
+                }
+            }
         }
         else
         {

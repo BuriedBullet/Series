@@ -7,7 +7,7 @@ include 'Funcoes.php';
 $id_serie = $_GET["id"];
 $qtd_temp_ant = $_GET["qtd_temp_ant"];
 $query = select_ep_serie($id_serie);
-$rst = select_qtd_temp($_SESSION["id_serie"]);
+$rst = select_qtd_temp($id_serie);
 $i=0;
 ?>
 
@@ -26,59 +26,60 @@ include 'navbar/nav_view.php';
                     
                     <?php while($i != $rst["qtd_temp"]): ?>
 					
-                    <?php $i = $i+1; ?>
+                        <?php $i = $i+1; ?>
 					
-					<div class="temp<?= $i ?> mb-4">
-						<p class="note note-info mb-4"><strong><?= $i ?>ª Temporada</strong></p>
-                    
-					<?php foreach($query as $item): ?>
-					
-						<?php if($item->temporada == $id): ?>
+                        <div class="temp<?= $i ?> mb-4">
+                            <p class="note note-info mb-4"><strong><?= $i ?>ª Temporada</strong></p>
+
+                        <?php foreach($query as $item): ?>
+
+                            <?php if($item->temporada == $i): ?>
+
+                                <div class="inputs<?= $i ?>">
+                                    <div class="row">
+                                        <div class="col-md-11">
+                                            <div class='input-group mb-3'>
+                                                <input type='text' class='form-control' placeholder='<?= $item->episodio ?>º Episodio' name='temp_ja_salva' aria-label='<?= $item->episodio ?>º Episodio' aria-describedby='<?= $item->episodio ?>º Episodio' value="<?= $item->nome ?>" readonly>
+                                                <div class='input-group-append'>
+                                                        <span class='input-group-text' id='<?= $item->episodio ?>º Episodio'><?= $item->episodio ?>º Episodio</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a class="edit" data-id="<?= $item->id ?>"><i class="fas fa-edit"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <?php else: ?>
 						
-						<div class="inputs<?= $i ?>">
-													
-							<div class='input-group mb-3'>
-								<input type='text' class='form-control' placeholder='<?= $item->episodio ?>º Episodio' name='temp_ja_salva' aria-label='<?= $item->episodio ?>º Episodio' aria-describedby='<?= $item->episodio ?>º Episodio' value="<?= $item->nome ?>" readonly>
-								<div class='input-group-append'>
-									<span class='input-group-text' id='<?= $item->episodio ?>º Episodio'><?= $item->episodio ?>º Episodio</span>
-								</div>
-							</div>
-							<a class="edit" data-id="<?= $item->id ?>"><i class="fas fa-edit"></i></a>
-							
+                                <div class="row mb-4">
+                                    <div class="offset-md-10 col-md-2 text-right">
+                                        <a class="remove" data-id="<?= $i ?>"><i class="fas fa-minus-circle red-text  fa-2x"></i></a>
+                                        <a class="add" data-id="<?= $i ?>"><i class="fas fa-plus-circle green-text fa-2x"></i></a>
+                                    </div>
+                                </div>
+                                <div class="inputs<?= $i ?>">					
+                                    <div class='input-group mb-3'>
+                                            <input type='text' class='form-control' placeholder='<?= $item->episodio ?>º Episodio' name='temp[]' aria-label='<?= $item->episodio ?>º Episodio' aria-describedby='<?= $item->episodio ?>º Episodio' value="<?= $item->nome ?>" readonly>
+                                            <div class='input-group-append'>
+                                                    <span class='input-group-text' id='<?= $item->episodio ?>º Episodio'><?= $item->episodio ?>º Episodio</span>
+                                            </div>
+                                    </div>
+                                    <a class="edit" data-id="<?= $item->id ?>"><i class="fas fa-edit"></i></a>
+                                </div>
+						
+                            <?php endif; ?>
+					
+                        <?php endforeach; ?>
+					
                         </div>
-						
-						<?php elseif: ?>
-						
-						<div class="row mb-4">
-                            <div class="offset-md-10 col-md-2 text-right">
-                                <a class="remove" data-id="<?= $i ?>"><i class="fas fa-minus-circle red-text  fa-2x"></i></a>
-                                <a class="add" data-id="<?= $i ?>"><i class="fas fa-plus-circle green-text fa-2x"></i></a>
-                            </div>
-                        </div>
-						<div class="inputs<?= $i ?>">
-													
-							<div class='input-group mb-3'>
-								<input type='text' class='form-control' placeholder='<?= $item->episodio ?>º Episodio' name='temp[]' aria-label='<?= $item->episodio ?>º Episodio' aria-describedby='<?= $item->episodio ?>º Episodio' value="<?= $item->nome ?>" readonly>
-								<div class='input-group-append'>
-									<span class='input-group-text' id='<?= $item->episodio ?>º Episodio'><?= $item->episodio ?>º Episodio</span>
-								</div>
-							</div>
-							<a class="edit" data-id="<?= $item->id ?>"><i class="fas fa-edit"></i></a>
-							
-                        </div>
-						
-						<?php endif; ?>
-					
-					<?php endforeach; ?>
-					
-					</div>
-                        
-					<input type="hidden" name="temp[]" value="koenokatachi" />
+                        <input type="hidden" name="temp[]" value="koenokatachi" />
                     
                     <?php endwhile; ?>
                     
                     <hr>
-					<input type="hidden" name="qtd_temp_ant" value="<?= $qtd_temp_ant ?>" />
+                    <input type="hidden" name="qtd_temp_ant" value="<?= $qtd_temp_ant ?>" />
                     <input type="hidden" name="id_serie" value="<?= $rst["id"] ?>" />
                     <div class="text-right"><button class="btn btn-info my-4" type="submit">Salvar</button></div>
                 </form>

@@ -44,7 +44,7 @@ include 'navbar/nav_view.php';
                         <div class="h4-responsive card-title text-center">Dados do Usuario</div>
                         <div class="row">
                             <div class="col-md-3 col-sm-6">
-                                <img src="<?= $user->img ?>" class="img-fluid rounded-circle" width="240px" height="240px"/>
+                                <img src="<?= $user->img ?>" class="img-fluid rounded-circle" style="width:240px; height:240px"/>
                             </div>
                             <div class="col-md-9 col-sm-6">
                                 <div class="row">
