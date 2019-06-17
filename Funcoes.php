@@ -82,6 +82,201 @@
             return 0;
         }
     }
+	
+	function inseri_episodios()
+    {
+        global $con;
+        
+        $temp = $_POST["temp"];
+        $id_serie = $_POST["id_serie"];
+        
+        $i = 1;
+        
+        foreach ($temp as $key => $item) {
+            $value = $key + 1;
+            if($item == "koenokatachi")
+            {
+                $i = $i + 1;
+            }
+            else
+            {
+                $query = "INSERT into episodio VALUES('', '$id_serie', '$i', '$value', '$item')";
+                mysqli_query($con, $query);
+            }
+        }
+        
+        unset($_SESSION['id_serie']);
+        
+        return 2;
+    }
+	
+	function inseri_new_episodios()
+	{
+		global $con;
+		
+		$temp = $_POST["temp"];
+        $id_serie = $_POST["id_serie"];
+        $qtd_temp_ant = $_POST["qtd_temp_ant"];
+		
+        $i = $qtd_temp_ant + 1;
+        
+        foreach ($temp as $key => $item) {
+            $value = $key + 1;
+            if($item == "koenokatachi")
+            {
+                $i = $i + 1;
+            }
+            else
+            {
+                $query = "INSERT into episodio VALUES('', '$id_serie', '$i', '$value', '$item')";
+                mysqli_query($con, $query);
+            }
+        }
+		
+	}
+	
+	function assistido($id_serie, $id_ep)
+    {
+        global $con;
+        
+        $id_usuario = $_SESSION["user"]["id"];
+        $date = date("Y-m-d H:i:s");
+        $query = "INSERT into controle_assistido VALUES('','$id_usuario', '$id_serie', '$id_ep', '1', '$date')";
+        $result = mysqli_query($con, $query);
+        
+        if($result)
+        {
+            header('Location: view_serie.php');
+        }
+    }
+    
+    function nao_assistido($id)
+    {
+        global $con;
+        
+        $query = "DELETE FROM controle_assistido WHERE id=$id";
+        $result = mysqli_query($con, $query);
+        
+        if($result)
+        {
+            header('Location: view_serie.php');
+        }
+    }
+	
+	function remove_serie($id)
+	{
+		global $con;
+		DELETE FROM controle_assistido WHERE id=$id
+		$query =  "DELETE FROM controle_assistido WHERE id_series=$id";
+		$result = mysqli_query($con, $query);
+		
+		if($result)
+		{
+			$query = "DELETE FROM serie_categoria WHERE id_serie=$id";
+			$result = mysqli_query($con, $query);
+			if($result)
+			{
+				$query = "DELETE FROM episodio WHERE id_serie=$id";
+				$result = mysqli_query($con, $query);
+				if($result)
+				{
+					$query = "DELETE FROM series WHERE id=$id";
+					$result = mysqli_query($con, $query);
+					
+					if($result)
+					{
+						header('Location: perfil.php');
+					}
+					else
+					{
+						header('Location: edita_serie.php?id_erro=erro');
+					}
+				}
+				else
+				{
+					header('Location: edita_serie.php?id_erro=erro');
+				}
+			}
+			else
+			{
+				header('Location: edita_serie.php?id_erro=erro');
+			}
+		}
+		else
+		{
+			header('Location: edita_serie.php?id_erro=erro');
+		}
+	}
+	
+	function edita_user()
+    {
+        global $con;
+        
+        $nome = $_POST["nome"];
+        $apelido = $_POST["apelido"];
+        $email = $_POST["email"];
+        $senha = !empty($_POST["senha"]) ? md5($_POST["senha"]) : $_SESSION["user"]["senha"];
+        $img = !empty($_POST["img"]) ? $_POST["img"] : $_SESSION["user"]["img"];
+        $id = $_SESSION["user"]["id"];
+        
+        $query = "UPDATE user SET nome='$nome',apelido='$apelido',email='$email',senha='$senha',img='$img' WHERE id=$id";
+        $result = mysqli_query($con, $query);
+        
+        if($result)
+        {
+            $query = "SELECT * FROM user WHERE id=$id";
+            $result = mysqli_query($con, $query);
+            
+            $rst = "";
+            foreach($result as $item)
+            {
+                $rst = $item;
+            }
+            
+            $_SESSION["user"] = $rst;
+            return 2;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    
+    function edita_serie()
+    {
+        global $con;
+        
+        $nome = $_POST["nome"];
+        $produtora = $_POST["produtora"];
+        $ano = $_POST["ano_lancamento"];
+        $descricao = $_POST["descricao"];
+        $img = !empty($_POST["img"]) ? $_POST["img"] : $_POST["img_ant"];
+        $img_fund = !empty($_POST["img_fund"]) ? $_POST["img_fund"] : $_POST["img_fund_ant"];
+        $qtd_temp = $_POST["qtd_temp"];
+        $categoria = $_POST["categoria"];
+        $status = $_POST["status"];
+        $id = $_POST["id_serie"];
+		$qtd_temp_ant = $_POST["qtd_temp_ant"];
+        
+        $query = "UPDATE series SET nome='$nome', produtira='$produtora', ano_lancamento='$ano', img='$img', img_fund='$img_fund',descricao='$descricao', qtd_temp=$qtd_temp, id_status=$status, data=NOW() WHERE id=$id";
+        $result = mysqli_query($con, $query);
+        
+        if($result)
+        {
+			if($qtd_temp_ant != $qtd_temp)
+			{
+				return 2;
+			}
+			else
+			{
+				return 3;
+			}
+        }
+        else
+        {
+            return 0;
+        }
+    }
     
     function user_acesso()
     {
@@ -147,13 +342,6 @@
         return $rst;
     }
     
-    function logout()
-    {   
-        session_unset();
-        
-        return  true;
-    }
-    
     function select_qtd_temp($id)
     {
         global $con;
@@ -169,33 +357,6 @@
         }
         
         return $rst;
-    }
-    
-    function inseri_episodios()
-    {
-        global $con;
-        
-        $temp = $_POST["temp"];
-        $id_serie = $_POST["id_serie"];
-        
-        $i = 1;
-        
-        foreach ($temp as $key => $item) {
-            $value = $key + 1;
-            if($item == "koenokatachi")
-            {
-                $i = $i + 1;
-            }
-            else
-            {
-                $query = "INSERT into episodio VALUES('', '$id_serie', '$i', '$value', '$item')";
-                mysqli_query($con, $query);
-            }
-        }
-        
-        unset($_SESSION['id_serie']);
-        
-        return 2;
     }
     
     function select_view_series()
@@ -308,34 +469,6 @@
         return $rst;
     }
     
-    function assistido($id_serie, $id_ep)
-    {
-        global $con;
-        
-        $id_usuario = $_SESSION["user"]["id"];
-        $date = date("Y-m-d H:i:s");
-        $query = "INSERT into controle_assistido VALUES('','$id_usuario', '$id_serie', '$id_ep', '1', '$date')";
-        $result = mysqli_query($con, $query);
-        
-        if($result)
-        {
-            header('Location: view_serie.php');
-        }
-    }
-    
-    function nao_assistido($id)
-    {
-        global $con;
-        
-        $query = "DELETE FROM controle_assistido WHERE id=$id";
-        $result = mysqli_query($con, $query);
-        
-        if($result)
-        {
-            header('Location: view_serie.php');
-        }
-    }
-    
     function select_assistido($id_serie)
     {
         global $con;
@@ -390,68 +523,6 @@
         }
         
         return $rst;
-    }
-    
-    function edita_user()
-    {
-        global $con;
-        
-        $nome = $_POST["nome"];
-        $apelido = $_POST["apelido"];
-        $email = $_POST["email"];
-        $senha = !empty($_POST["senha"]) ? md5($_POST["senha"]) : $_SESSION["user"]["senha"];
-        $img = !empty($_POST["img"]) ? $_POST["img"] : $_SESSION["user"]["img"];
-        $id = $_SESSION["user"]["id"];
-        
-        $query = "UPDATE user SET nome='$nome',apelido='$apelido',email='$email',senha='$senha',img='$img' WHERE id=$id";
-        $result = mysqli_query($con, $query);
-        
-        if($result)
-        {
-            $query = "SELECT * FROM user WHERE id=$id";
-            $result = mysqli_query($con, $query);
-            
-            $rst = "";
-            foreach($result as $item)
-            {
-                $rst = $item;
-            }
-            
-            $_SESSION["user"] = $rst;
-            return 2;
-        }
-        else
-        {
-            return 0;
-        }
-    }
-    
-    function edita_serie()
-    {
-        global $con;
-        
-        $nome = $_POST["nome"];
-        $produtora = $_POST["produtora"];
-        $ano = $_POST["ano_lancamento"];
-        $descricao = $_POST["descricao"];
-        $img = !empty($_POST["img"]) ? $_POST["img"] : $_POST["img_ant"];
-        $img_fund = !empty($_POST["img_fund"]) ? $_POST["img_fund"] : $_POST["img_fund_ant"];
-        $qtd_temp = $_POST["qtd_temp"];
-        $categoria = $_POST["categoria"];
-        $status = $_POST["status"];
-        $id = $_POST["id_serie"];
-        
-        $query = "UPDATE series SET nome='$nome', produtira='$produtora', ano_lancamento='$ano', img='$img', img_fund='$img_fund',descricao='$descricao', qtd_temp=$qtd_temp, id_status=$status, data=NOW() WHERE id=$id";
-        $result = mysqli_query($con, $query);
-        
-        if($result)
-        {
-            return 2;
-        }
-        else
-        {
-            return 0;
-        }
     }
     
     function select_serie_user($id)
@@ -522,6 +593,13 @@
         return $rst;
     }
     
+	function logout()
+    {   
+        session_unset();
+        
+        return  true;
+    }
+	
     function verifica_mobile()
     {
         $iphone = strpos($_SERVER['HTTP_USER_AGENT'],"iPhone");

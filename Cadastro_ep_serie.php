@@ -1,5 +1,6 @@
 <?php
 include 'header.php';
+include 'Funcoes.php';
 ?>
 
 <?php
@@ -16,7 +17,6 @@ $i=0;
 
 <?php
 include 'navbar/nav_view.php';
-include 'Funcoes.php';
 ?>
 
 <main class="mt-4 py-5">

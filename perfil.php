@@ -14,6 +14,7 @@ $j = 0;
 <?php
 include 'navbar/nav_view.php';
 ?>
+
 <style>
     body, html {
         height: 100%;

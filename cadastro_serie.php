@@ -1,10 +1,16 @@
 <?php 
 include 'header.php';
-$_SESSION["ctr_nav"] = 2;
-include 'navbar/nav_view.php';
 include 'Funcoes.php';
+?>
+
+<?php
+$_SESSION["ctr_nav"] = 2;
 $categoria = select_categoria();
 $status = select_status();
+?>
+
+<?php
+include 'navbar/nav_view.php';
 ?>
 
 <main class="mt-4 py-5">
@@ -48,23 +54,31 @@ $status = select_status();
                         <div class="col">
                             <select class="browser-default custom-select" name="status">
                                 <option selected>Status da Série/Anime</option>
+								
                                 <?php foreach($status as $item): ?>
+								
                                 <option value="<?= $item->id ?>"><?= $item->nome ?></option>
+								
                                 <?php endforeach; ?>
+								
                             </select>
                         </div>
                     </div>
                     
                     <h5>Categoria</h5>
                     <div class="row">
+					
                         <?php foreach($categoria as $key => $item): ?>
+						
                         <div class="col-md-2">
                             <div class="custom-control custom-checkbox mb-4">
                                 <input type="checkbox" class="custom-control-input" id="defaultInline<?= $key ?>" name="categoria[]" value="<?= $item->id ?>">
                                 <label class="custom-control-label" for="defaultInline<?= $key ?>"><?= $item->nome ?></label>
                             </div>
                         </div>
+						
                         <?php endforeach; ?>
+						
                     </div>
                     
                     <input type="hidden" name="id_usuario" value="<?= $_SESSION["user"]["id"] ?>" />
@@ -86,7 +100,9 @@ $status = select_status();
 </main>
 <?php 
     include 'footer.php';
+?>
 
+<?php
     @$nome = $_POST["nome"];
     @$produtora = $_POST["produtora"];
     @$ano = $_POST["ano_lancamento"];

@@ -100,6 +100,7 @@ include 'navbar/nav_assistido.php';
     </div>
 </main>
 <p class="note note-danger invisible"><strong>Alerta:</strong></p>
+
 <?php
 include 'footer.php';
 ?>

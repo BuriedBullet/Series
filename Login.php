@@ -1,8 +1,14 @@
 <?php
 include 'header.php';
-$_SESSION["pagina"] = "2";
-include 'navbar/navbar_L.php';
 include 'Funcoes.php';
+?>
+
+<?php
+$_SESSION["pagina"] = "2";
+?>
+
+<?php
+include 'navbar/navbar_L.php';
 ?>
 
 <main class="mt-4 py-5">
@@ -34,12 +40,14 @@ include 'Funcoes.php';
         </div>
     </div>
 </main>
+
 <?php 
 include 'footer.php';
+?>
 
+<?php
 @$email = $_POST["email"];
 @$senhas = $_POST["senha"];
-
 ?>
 
 <script type="text/javascript">

@@ -5,6 +5,10 @@ include 'Funcoes.php';
 
 <?php
 $_SESSION["ctr_nav"] = 3;
+if(isset($_GET["id_erro"]))
+{
+	$erro = $_GET["id_erro"];
+}
 $id_serie = $_GET["id"];
 $cat = select_categoria();
 $statu = select_status();
@@ -21,6 +25,7 @@ include 'navbar/nav_view.php';
             <div class="container">
                 <p class="note note-danger invisible"><strong>Alerta:</strong></p>
                 <p class="note note-danger d-none" id="paragrafo_alerta"><strong>Alerta:</strong> Ocorreu um erro ao tentar editar a serie, por favor tente novamente e certifique de estar preenchendo os campos corretamente. </p>
+				<p class="note note-danger <?= isset($erro) ? "d-block" : "d-none" ?>" id="paragrafo_alerta"><strong>Alerta:</strong> Occoreu um erro ao tentar apagar a série. </p>
                 <form class="text-center border border-light p-5" method="post" action="cadastro_serie.php">
 
                     <p class="h4 mb-4">Editação - <?= $query->nome ?></p>
@@ -81,10 +86,13 @@ include 'navbar/nav_view.php';
                     <input type="hidden" name="id_usuario" value="<?= $_SESSION["user"]["id"] ?>" />
                     
                     <div class="row">
-                        <div class="col-md-6">
-                            <a href="edita_ep_serie.php?id=<?= $id_serie ?>" class="btn btn-warning my-4 btn-block">Alterar Apenas os Episodios das Temporadas</a>
+                        <div class="col-md-4">
+                            <a href="edita_ep_serie.php?id=<?= $id_serie ?>&qtd_temp_ant=<?= $query->qtd_temp ?>" class="btn btn-warning my-4 btn-block">Alterar Apenas os Episodios das Temporadas</a>
                         </div>
-                        <div class="col-md-6">
+						<div class="col-md-4">
+							<a class="btn btn-danger my-4 btn-block apaga_serie" data-id="<?= $query->id ?>">Apagar Serie</a>
+						</div>
+                        <div class="col-md-4">
                             <button class="btn btn-info my-4 btn-block" type="submit">Enviar</button>
                         </div>
                     </div>
@@ -120,6 +128,13 @@ include 'footer.php';
 ?>
 
 <script type="text/javascript">
+
+$(".apaga_serie").on('click', function(e){
+	e.preventDefault();
+	var id = $(this).data("id");
+	window.location.href = "remove_serie.php?id="+id;
+});
+
 var result = <?= !empty($nome) && !empty($produtora) && !empty($ano) && !empty($descricao) && !empty($qtd_temp) && !empty($categoria) ? edita_serie() : 1 ?>
 
 if(result === 0)
@@ -128,6 +143,10 @@ if(result === 0)
 }
 else if(result === 2)
 {
-    window.location.href = "perfil.php";
+    window.location.href = "edita_ep_serie.php?id=<?= $id_serie ?>&qtd_temp_ant=<?= $query->qtd_temp ?>";
+}
+elseif($result == 3)
+{
+	window.location.href = "perfil.php";
 }
 </script>
