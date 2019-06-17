@@ -1,21 +1,32 @@
-<?php
+<style type="text/css">
+    .intro-2 {
+        background: url("<?= $rst->img_fund ?>")no-repeat center center;
+        background-size: cover;
+    }
 
-if(empty($_SESSION["user"]))
-{
-    header('Location: Login.php');
-}
+    .navbar {
+        background-color: transparent;
+    }
 
-?>
-<style>
-    .navbar{
+    .top-nav-collapse {
         background-color: #166678;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .navbar {
+            background-color: #166678;
+        }
+    }
+    html,
+    body,
+    header,
+    .view {
+        height: 90%;
     }
 </style>
 <header>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
-        <a class="navbar-brand" href="index.php">
-            <img src="assets/img/logo_transparent.png" height="30" alt="Serie Time logo">
-        </a>
+        <a class="navbar-brand" href="#"><strong>Navbar</strong></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -47,4 +58,18 @@ if(empty($_SESSION["user"]))
             </ul>
         </div>
     </nav>
+    <div class="view intro-2" style="">
+        <div class="full-bg-img">
+            <div class="mask rgba-blue-grey-light flex-center">
+                <div class="container text-center white-text wow fadeInUp">
+                    <h2><?= $rst->nome ?></h2>
+                    <br>
+                    <h5><?= $rst->produtora ?> - <?= $rst->ano_lancamento ?></h5>
+                    <p><?= $rst->qtd_temp > 1 ? $rst->qtd_temp." Temporadas" : $rst->qtd_temp."Temporada" ?> - <?= $rst->status->nome ?></p>
+                    <br>
+                    <p><?= $rst->descricao ?></p>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>

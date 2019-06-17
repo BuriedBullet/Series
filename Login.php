@@ -2,7 +2,8 @@
 include 'header.php';
 $_SESSION["pagina"] = "2";
 include 'navbar/navbar_L.php';
-include 'Funcoes.php'?>
+include 'Funcoes.php';
+?>
 
 <main class="mt-4 py-5">
     <div class="row">
@@ -43,10 +44,10 @@ include 'footer.php';
 
 <script type="text/javascript">
     
-    var result = <?= !empty($email) && !empty($senhas) ? user_acesso() : 1 ?>;
+    var result = <?= !empty($email) && !empty($senhas) ? user_acesso() : 1?>;
     if(result === 0)
     {
-        $("#alerta").removeClass("invisible").addClass("visible");
+            $("#alerta").removeClass("invisible").addClass("visible");
     }
     else if(result === 2)
     {

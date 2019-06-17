@@ -1,3 +1,10 @@
+<?php
+    if(isset($_SESSION["user"]) && !empty($_SESSION["user"]))
+    {
+        header('Location: view.php');
+    }
+?>
+
 <style>
     .navbar{
         background-color: #166678;

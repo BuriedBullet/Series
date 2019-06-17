@@ -1,50 +1,40 @@
 <?php 
 include 'header.php';
-$_SESSION["ctr_nav"] = 1;
-include 'navbar/nav_view.php';
 include 'Funcoes.php';
+?>
 
-$query = select_view_series();
-$categoria = select_all_categorias();
-$ctrl = array();
-for($i=0;$i<count($categoria);$i++)
-{
-    $ctrl[] = "1";
-}
+<?php 
+$_SESSION["ctr_nav"] = 1;
+$id_cat = $_GET["id_cat"];
+$query = select_all_series_cat($id_cat);
+$cat = get_cat($id_cat);
+$i = 0;
+?>
+
+<?php 
+include 'navbar/nav_view.php';
 ?>
 
 <p class="note note-danger invisible"><strong>Alerta:</strong></p>
 <p class="note note-danger invisible"><strong>Alerta:</strong></p>
-<div class="text-center">
-    <div class="<?= verifica_mobile() == 1 ? "btn-group-vertical" : "btn-group" ?>" role="group" aria-label="Basic example">
-        
-        <?php foreach($categoria as $item): ?>
-        
-        <a href="view_categorias.php?id_cat=<?= $item->id ?>" class="btn btn-cyan"><?= $item->nome ?></a>
-        
-        <?php endforeach; ?>
-    </div>
-</div>
-<p class="note note-danger invisible"><strong>Alerta:</strong></p>
+
 <div class="container-fluid">
-<?php foreach($categoria as $key => $value): ?>
-    
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="card teal text-center">
                 <div class="card-body">
-                    <p class="h5-responsive white-text mb-0"><?= $value->nome ?></p>
+                    <p class="h5-responsive white-text mb-0"><?= $cat->nome ?></p>
                 </div>
             </div>
         </div>
     </div>
     <p class="note note-danger invisible"><strong>Alerta:</strong></p>
     <div class="row">
-        <?php foreach($query as $item): ?>
         
-        <?php if(strpos($item->categoria, $value->nome) && $ctrl[$key] <= 6): ?>
+        <?php foreach($query as $key => $item): ?>
         
-            <?php $ctrl[$key]++; ?>
+            <?php $i++; ?>
+        
             <div class="col-sm-4 col-lg-2">
                 <a class="card_serie" data-id="<?= $item->id ?>">
                     <div class="card card-image" style="background-image: url(<?= $item->img ?>);height: 100%;background-size: cover;">
@@ -66,23 +56,30 @@ for($i=0;$i<count($categoria);$i++)
         
             <p class="note note-danger invisible"><strong>Alerta:</strong></p>
             <p class="note note-danger invisible"><strong>Alerta:</strong></p>
-            
+                    
             <?php
-            endif;
+            elseif(verifica_mobile() == 0 && $i%6==0):
+            echo '</div>';
             ?>
-        
-        <?php endif; ?>
-        
+            <div class="row">
+                <p class="note note-danger invisible"><strong>Alerta:</strong></p>
+            </div>
+            <div class="row">
+                <p class="note note-danger invisible"><strong>Alerta:</strong></p>
+            </div>
+            <?php 
+            echo '<div class="row">';
+            endif; 
+            ?>
+            
         <?php endforeach; ?>
+        
     </div>
-    <p class="note note-danger invisible"><strong>Alerta:</strong></p>
-    <p class="note note-danger invisible"><strong>Alerta:</strong></p>
-    
-<?php endforeach; ?>
 </div>
-<p class="note note-danger invisible"><strong>Alerta:</strong></p>
 
-<?php include 'footer.php' ?>
+<p class="note note-danger invisible"><strong>Alerta:</strong></p>
+<p class="note note-danger invisible"><strong>Alerta:</strong></p>
+<?php include 'footer.php'; ?>
 
 <script type="text/javascript">
     $(".card_serie").on("click", function(e){

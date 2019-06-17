@@ -1,7 +1,6 @@
 <?php 
 include 'header.php';
 $_SESSION["ctr_nav"] = 2;
-$_SESSION["pagina"] = 2;
 include 'navbar/nav_view.php';
 include 'Funcoes.php';
 $categoria = select_categoria();
@@ -12,7 +11,9 @@ $status = select_status();
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="container">
-                <form class="text-center border border-light p-5" method="post" action="Login.php">
+                <p class="note note-danger invisible"><strong>Alerta:</strong></p>
+                <p class="note note-danger d-none" id="paragrafo_alerta"><strong>Alerta:</strong> Ocorreu um erro ao tentar cadastrar a serie, por favor tente novamente e certifique de estar preenchendo os campos corretamente. </p>
+                <form class="text-center border border-light p-5" method="post" action="cadastro_serie.php">
 
                     <p class="h4 mb-4">Cadastro de Série e Anime</p>
 
@@ -42,9 +43,10 @@ $status = select_status();
                     
                     <div class="form-row mb-4">
                         <div class="col">
-                            <input type="text" id="defaultRegisterFormTemporadas" name="qtd_temp" class="form-control mb-4" placeholder="Quantidade de Temporadas">                        </div>
+                            <input type="number" id="defaultRegisterFormTemporadas" name="qtd_temp" class="form-control mb-4" placeholder="Quantidade de Temporadas"/>
+                        </div>
                         <div class="col">
-                            <select class="browser-default custom-select">
+                            <select class="browser-default custom-select" name="status">
                                 <option selected>Status da Série/Anime</option>
                                 <?php foreach($status as $item): ?>
                                 <option value="<?= $item->id ?>"><?= $item->nome ?></option>
@@ -55,17 +57,19 @@ $status = select_status();
                     
                     <h5>Categoria</h5>
                     <div class="row">
-                    <?php foreach($categoria as $key => $item): ?>
-                    <div class="col-md-2">
-                        <div class="custom-control custom-checkbox mb-4">
-                            <input type="checkbox" class="custom-control-input" id="defaultInline<?= $key ?>" name="categoria" value="<?= $item->id ?>">
-                            <label class="custom-control-label" for="defaultInline<?= $key ?>"><?= $item->nome ?></label>
+                        <?php foreach($categoria as $key => $item): ?>
+                        <div class="col-md-2">
+                            <div class="custom-control custom-checkbox mb-4">
+                                <input type="checkbox" class="custom-control-input" id="defaultInline<?= $key ?>" name="categoria[]" value="<?= $item->id ?>">
+                                <label class="custom-control-label" for="defaultInline<?= $key ?>"><?= $item->nome ?></label>
+                            </div>
                         </div>
-                    </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
                     </div>
                     
-                    <button class="btn btn-info my-4 btn-block" type="submit">Entrar</button>
+                    <input type="hidden" name="id_usuario" value="<?= $_SESSION["user"]["id"] ?>" />
+                    
+                    <button class="btn btn-info my-4 btn-block" type="submit">Enviar</button>
 
                     <hr>
 
@@ -73,32 +77,36 @@ $status = select_status();
                     <p>By clicking
                         <em>Sign in</em> you agree to our
                         <a href="" target="_blank">terms of service</a>
-
+                    </p>
                 </form>
+                <p class="note note-danger invisible"><strong>Alerta:</strong></p>
             </div>
         </div>
     </div>
 </main>
+<?php 
+    include 'footer.php';
 
-<?php include 'footer.php' ?>
-
-<?php
     @$nome = $_POST["nome"];
     @$produtora = $_POST["produtora"];
     @$ano = $_POST["ano_lancamento"];
     @$img = $_POST["img"];
     @$img_fund = $_POST["img_fund"];
     @$descricao = $_POST["descricao"];
-    @$qtd_temp = $_POST["qtd_temp"]
+    @$qtd_temp = $_POST["qtd_temp"];
     @$categoria = $_POST["categoria"];
-
-    if(!empty($nome) && !empty($produtora) && !empty($ano) && !empty($img) && !empty($img_fund) && !empty($descricao) && !empty($qtd_temp) && !empty($categoria))
-    {
-        $result = inseri_serie();
-        if($result == 1)
-        {
-            
-        }
-    }
+    @$status = $_POST["status"];
 ?>
 
+<script type="text/javascript">
+var result = <?= !empty($nome) && !empty($produtora) && !empty($ano) && !empty($img) && !empty($img_fund) && !empty($descricao) && !empty($qtd_temp) && !empty($categoria) ? inseri_serie() : 1 ?>
+
+if(result === 0)
+{
+    $("#paragrafo_alerta").removeClass("d-none").addClass("d-block");
+}
+else if(result === 2)
+{
+    window.location.href = "Cadastro_ep_serie.php";
+}
+</script>
