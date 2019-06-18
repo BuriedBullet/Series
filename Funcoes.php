@@ -83,7 +83,7 @@
         }
     }
 	
-	function inseri_episodios()
+    function inseri_episodios()
     {
         global $con;
         
@@ -110,16 +110,16 @@
         return 2;
     }
 	
-	function inseri_new_episodios()
-	{
-		global $con;
-		
-		$temp = $_POST["temp"];
+    function inseri_new_episodios()
+    {
+        global $con;
+
+        $temp = $_POST["temp"];
         $id_serie = $_POST["id_serie"];
         $qtd_temp_ant = $_POST["qtd_temp_ant"];
-		
+
         $i = $qtd_temp_ant + 1;
-        
+
         foreach ($temp as $key => $item) {
             $value = $key + 1;
             if($item == "koenokatachi")
@@ -132,10 +132,9 @@
                 mysqli_query($con, $query);
             }
         }
-		
-	}
+    }
 	
-	function assistido($id_serie, $id_ep)
+    function assistido($id_serie, $id_ep)
     {
         global $con;
         
@@ -207,7 +206,7 @@
 		}
 	}
 	
-	function edita_user()
+    function edita_user()
     {
         global $con;
         
@@ -273,14 +272,7 @@
                     $result = mysqli_query($con, $query);
                 }
                 
-                if($qtd_temp_ant != $qtd_temp)
-                {
-                        return 2;
-                }
-                else
-                {
-                        return 3;
-                }
+                return 3;
             }
         }
         else
@@ -484,7 +476,8 @@
     {
         global $con;
         
-        $query = "SELECT * FROM controle_assistido WHERE id_series=$id_serie";
+        $id_user = $_SESSION["user"]["id"];
+        $query = "SELECT * FROM controle_assistido WHERE id_series=$id_serie AND id_user=$id_user";
         $result = mysqli_query($con, $query);
         
         $rst = array();

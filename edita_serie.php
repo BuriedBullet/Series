@@ -80,28 +80,15 @@ include 'navbar/nav_view.php';
                         <?php endforeach; ?>
                     </div>
                     
-                    <input type="hidden" name="img_ant" value<?= $query->img ?> />
-                    <input type="hidden" name="img_fund_ant" value<?= $query->img_fund ?> />
+                    <input type="hidden" name="img_ant" value="<?= $query->img ?>" />
+                    <input type="hidden" name="img_fund_ant" value="<?= $query->img_fund ?>" />
                     <input type="hidden" name="id_serie" value="<?= $query->id ?>" />
-                    <input type="hidden" name="qtd_temp_ant" value="<?= $query->qtd_temp ?>"
+                    <input type="hidden" name="qtd_temp_ant" value="<?= $query->qtd_temp ?>" />
                     
-                    <div class="row">
-                        <div class="col-md-4 offset-md-6">
-                            <button class="btn btn-info my-4 btn-block" type="submit">Enviar</button>
-                        </div>
-                    </div>
-
-                    <hr>
-                    <!-- Terms of service -->
-                    <p>By clicking
-                        <em>Sign in</em> you agree to our
-                        <a href="" target="_blank">terms of service</a>
-                    </p>
+                    <button class="btn btn-info my-4 btn-block" type="submit">Enviar</button>
+                    
                 </form>
                 <div class="row">
-                    <div class="col-md-4">
-                        <a href="edita_ep_serie.php?id=<?= $id_serie ?>&qtd_temp_ant=<?= $query->qtd_temp ?>" class="btn btn-success my-4 btn-block">Alterar os Episodios</a>
-                    </div>
                     <div class="col-md-4 offset-md-3">
                         <a class="btn btn-danger my-4 btn-block apaga_serie" data-id="<?= $query->id ?>">Apagar Serie</a>
                     </div>
@@ -141,11 +128,7 @@ if(result === 0)
 {
     $("#paragrafo_alerta").removeClass("d-none").addClass("d-block");
 }
-else if(result === 2)
-{
-    window.location.href = "edita_ep_serie.php?id=<?= $id_serie ?>&qtd_temp_ant=<?= $query->qtd_temp ?>";
-}
-else if(result == 3)
+else if(result === 3)
 {
 	window.location.href = "perfil.php";
 }
